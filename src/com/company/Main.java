@@ -21,8 +21,7 @@ public class Main {
                 (request, response) -> {
                     ArrayList<User> users = selectUser(conn);
                     JsonSerializer serializer = new JsonSerializer();
-                    MessagesWrapper wrapper = new MessagesWrapper(messages);
-                    return serializer.deep(true).serialize(wrapper);
+                    return serializer.deep(true).serialize(users);
                 }
         );
         Spark.post(
@@ -74,10 +73,17 @@ public class Main {
         }
         return null;
     }
-    public static void updateUser(Connection conn) {
-
+    public static void updateUser(Connection conn, String username, String address, String email, int id) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("UPDATE users SET username = ?, address = ?, email = ? WHERE id = ?");
+        stmt.setInt(5, id);
+        stmt.setString(1, username);
+        stmt.setString(2, address);
+        stmt.setString(3, email);
+        stmt.execute();
     }
-    public static void deleteUser(Connection conn) {
-
+    public static void deleteUser(Connection conn, int id) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM users WHERE id = ?");
+        stmt.setInt(1, id);
+        stmt.execute();
     }
 }
