@@ -19,12 +19,31 @@ public class MainTest {
     }
 
     @Test
-    public void testUser() throws SQLException {
+    public void testInsertSelectUser() throws SQLException {
         Connection conn = startConnection();
         Main.insertUser(conn, "Alice", "123 main st", "alice@gmail.com");
         User user = Main.selectUser(conn, "Alice");
         conn.close();
         assertTrue(user != null);
         assertTrue(user.username.equals("Alice"));
+    }
+    @Test
+    public void testDeleteUser() throws SQLException {
+        Connection conn = startConnection();
+        Main.insertUser(conn, "Alice", "123 main st", "allice@gmail.com");
+        Main.updateUser(conn, "bob", "123 main st", "alice@gmail.com", 1);
+        User user = Main.selectUser(conn, "bob");
+        conn.close();
+        assertTrue(user != null);
+        assertTrue(user.username.equals("bob"));
+    }
+    @Test
+    public void testUpdateUser() throws SQLException {
+        Connection conn = startConnection();
+        Main.insertUser(conn, "Alice", "123 main st", "allice@gmail.com");
+        Main.deleteUser(conn, 1);
+        User user = Main.selectUser(conn, "bob");
+        conn.close();
+        assertTrue(user == null);
     }
 }

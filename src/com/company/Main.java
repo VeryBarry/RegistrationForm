@@ -19,9 +19,9 @@ public class Main {
         Spark.get(
                 "/user",
                 (request, response) -> {
-//                    ArrayList<User> users = selectUser(conn, name);
-//                    JsonSerializer serializer = new JsonSerializer();
-//                    return serializer.deep(true).serialize(users);
+                    ArrayList<User> users = selectUser(conn, name);
+                    JsonSerializer serializer = new JsonSerializer();
+                    return serializer.deep(true).serialize(users);
                     return null;
                 }
         );
@@ -62,7 +62,7 @@ public class Main {
         stmt.execute();
     }
     public static User selectUser(Connection conn, String name) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE name = ?");
+         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE username = ?");
         stmt.setString(1, name);
         ResultSet results = stmt.executeQuery();
         if (results.next()) {
@@ -76,7 +76,7 @@ public class Main {
     }
     public static void updateUser(Connection conn, String username, String address, String email, int id) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("UPDATE users SET username = ?, address = ?, email = ? WHERE id = ?");
-        stmt.setInt(5, id);
+        stmt.setInt(4, id);
         stmt.setString(1, username);
         stmt.setString(2, address);
         stmt.setString(3, email);
