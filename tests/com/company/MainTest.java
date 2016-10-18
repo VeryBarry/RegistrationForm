@@ -21,7 +21,7 @@ public class MainTest {
     @Test
     public void testUser() throws SQLException {
         Connection conn = startConnection();
-        Main.insertUser(conn, "Alice");
+        Main.insertUser(conn, "Alice", "123 main st", "alice@gmail.com");
         User user = Main.selectUser(conn, "Alice");
         conn.close();
         assertTrue(user != null);

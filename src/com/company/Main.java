@@ -19,9 +19,10 @@ public class Main {
         Spark.get(
                 "/user",
                 (request, response) -> {
-                    ArrayList<User> users = selectUser(conn);
-                    JsonSerializer serializer = new JsonSerializer();
-                    return serializer.deep(true).serialize(users);
+//                    ArrayList<User> users = selectUser(conn, name);
+//                    JsonSerializer serializer = new JsonSerializer();
+//                    return serializer.deep(true).serialize(users);
+                    return null;
                 }
         );
         Spark.post(
@@ -30,7 +31,7 @@ public class Main {
                     String body = request.body();
                     JsonParser parser = new JsonParser();
                     HashMap<String, String> msg = parser.parse(body);
-                    insertUser(conn, , 0);
+                    //insertUser(conn, , 0);
                     return null;
                 }
         );
