@@ -19,9 +19,9 @@ public class Main {
         Spark.get(
                 "/user",
                 (request, response) -> {
-                    ArrayList<User> users = selectUser(conn, name);
+                    //ArrayList<User> users = selectUser(conn, name);
                     JsonSerializer serializer = new JsonSerializer();
-                    return serializer.deep(true).serialize(users);
+                    //return serializer.deep(true).serialize(users);
                     return null;
                 }
         );
