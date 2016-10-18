@@ -28,7 +28,7 @@ public class MainTest {
         assertTrue(user.username.equals("Alice"));
     }
     @Test
-    public void testDeleteUser() throws SQLException {
+    public void testUpdateUser() throws SQLException {
         Connection conn = startConnection();
         Main.insertUser(conn, "Alice", "123 main st", "allice@gmail.com");
         Main.updateUser(conn, "bob", "123 main st", "alice@gmail.com", 1);
@@ -38,7 +38,7 @@ public class MainTest {
         assertTrue(user.username.equals("bob"));
     }
     @Test
-    public void testUpdateUser() throws SQLException {
+    public void testDeleteUser() throws SQLException {
         Connection conn = startConnection();
         Main.insertUser(conn, "Alice", "123 main st", "allice@gmail.com");
         Main.deleteUser(conn, 1);
