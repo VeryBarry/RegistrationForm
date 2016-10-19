@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -19,30 +20,33 @@ public class MainTest {
     }
 
     @Test
-    public void testInsertSelectUser() throws SQLException {
+    public void testInsertUser() throws SQLException {
         Connection conn = startConnection();
-        Main.insertUser(conn, "Alice", "123 main st", "alice@gmail.com");
-        User user = Main.selectUser(conn, "Alice");
+        User u = new User(1, "Alice", "123 main st", "alice@gmail.com");
+        Main.insertUser(conn, u);
+        ArrayList<User> user = Main.selectUser(conn);
         conn.close();
         assertTrue(user != null);
-        assertTrue(user.username.equals("Alice"));
     }
     @Test
     public void testUpdateUser() throws SQLException {
         Connection conn = startConnection();
-        Main.insertUser(conn, "Alice", "123 main st", "allice@gmail.com");
-        Main.updateUser(conn, "bob", "123 main st", "alice@gmail.com", 1);
-        User user = Main.selectUser(conn, "bob");
+        User u = new User(1, "Alice", "123 main st", "alice@gmail.com");
+        Main.insertUser(conn, u);
+        User up = new User(1, "bob", "123 main st", "alice@gmail.com");
+        Main.updateUser(conn, up);
+        ArrayList<User> user = Main.selectUser(conn);
         conn.close();
         assertTrue(user != null);
-        assertTrue(user.username.equals("bob"));
+        assertTrue(user.contains("bob"));
     }
     @Test
     public void testDeleteUser() throws SQLException {
         Connection conn = startConnection();
-        Main.insertUser(conn, "Alice", "123 main st", "allice@gmail.com");
+        User u = new User(1, "Alice", "123 main st", "alice@gmail.com");
+        Main.insertUser(conn, u);
         Main.deleteUser(conn, 1);
-        User user = Main.selectUser(conn, "bob");
+        ArrayList<User> user = Main.selectUser(conn);
         conn.close();
         assertTrue(user == null);
     }
